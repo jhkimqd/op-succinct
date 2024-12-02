@@ -1,15 +1,15 @@
 {
   "challenger": "0x0000000000000000000000000000000000000000",
   "finalizationPeriod": 0,
-  "l2BlockTime": 2,
-  "owner": "0xDEd0000E32f8F40414d3ab3a830f735a3553E18e",
-  "proposer": "0xDEd0000E32f8F40414d3ab3a830f735a3553E18e",
-  "rollupConfigHash": "0x5e32d5f9f902c6a46cb75cbdb083ea67b9475d7026542a009dc9d99072f4bdf1",
-  "startingBlockNumber": 20387725,
-  "startingOutputRoot": "0x31d6b69ae155c7b840f7b8e7b050522f5a29b8d40911976847ffc32257e92ff4",
-  "startingTimestamp": 1732577990,
-  "submissionInterval": 1200,
-  "verifier": "0x397A5f7f3dBd538f23DE225B51f532c34448dA9B",
-  "aggregationVkey": "0x009a6acd07328fc24a911fdb29fc3d6a57eee48a6db6694f966d64019753b541",
-  "rangeVkeyCommitment": "0x2413b6da2c76aa356ced7e5c0fe05eff4397cc68744c01ad25a9477d1df2d5be"
+  "l2BlockTime": 1,
+  "owner": "0x8943545177806ED17B9F23F0a21ee5948eCaa776",
+  "proposer": "0x8943545177806ED17B9F23F0a21ee5948eCaa776",
+  "rollupConfigHash": "0x8937ae52b9f2b91e95b974f371f0cd8c1db06314ed536425b03bf3320c64c93a",
+  "startingBlockNumber": 18,
+  "startingOutputRoot": "0xb5fab0bc95e70e39434a894bd99bbe0e166fee098319462e4d68b2c146cbef86",
+  "startingTimestamp": 1733143795,
+  "submissionInterval": 10,
+  "verifier": "0xb4B46bdAA835F8E4b4d8e208B6559cD267851051",
+  "aggregationVkey": "0x00058bd5aa081a7f61f90919b6979bc1f1519535bd06f72f2357472146f120ba",
+  "rangeVkeyCommitment": "0x3052ba6633f5199f4accbc4b20fc3e6076425f4f18454e3f705576cd4f6228b0"
 }

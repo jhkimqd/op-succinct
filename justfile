@@ -98,11 +98,11 @@ upgrade-l2oo l1_rpc admin_pk etherscan_api_key="":
     exit 1
   fi
 
-  VERIFY=""
-  ETHERSCAN_API_KEY="{{etherscan_api_key}}"
-  if [ $ETHERSCAN_API_KEY != "" ]; then
-    VERIFY="--verify --verifier etherscan --etherscan-api-key $ETHERSCAN_API_KEY"
-  fi
+  # VERIFY=""
+  # ETHERSCAN_API_KEY="{{etherscan_api_key}}"
+  # if [ $ETHERSCAN_API_KEY != "" ]; then
+  #   VERIFY="--verify --verifier etherscan --etherscan-api-key $ETHERSCAN_API_KEY"
+  # fi
 
   L1_RPC="{{l1_rpc}}"
   ADMIN_PK="{{admin_pk}}"
@@ -136,8 +136,7 @@ deploy-mock-verifier env_file=".env":
     forge script script/DeployMockVerifier.s.sol:DeployMockVerifier \
     --rpc-url $L1_RPC \
     --private-key $PRIVATE_KEY \
-    --broadcast \
-    $VERIFY_FLAGS
+    --broadcast 
 # Deploy the OPSuccinct L2 Output Oracle
 deploy-oracle env_file=".env":
     #!/usr/bin/env bash
@@ -156,10 +155,7 @@ deploy-oracle env_file=".env":
     forge script script/OPSuccinctDeployer.s.sol:OPSuccinctDeployer \
         --rpc-url $L1_RPC \
         --private-key $PRIVATE_KEY \
-        --broadcast \
-        --verify \
-        --verifier etherscan \
-        --etherscan-api-key $ETHERSCAN_API_KEY
+        --broadcast 
 
 
 # Upgrade the OPSuccinct L2 Output Oracle
@@ -180,12 +176,10 @@ upgrade-oracle env_file=".env":
     if [ "$EXECUTE_UPGRADE_CALL" = "false" ]; then
         forge script script/OPSuccinctUpgrader.s.sol:OPSuccinctUpgrader \
             --rpc-url $L1_RPC \
-            --private-key $PRIVATE_KEY \
-            --etherscan-api-key $ETHERSCAN_API_KEY
+            --private-key $PRIVATE_KEY 
     else
         forge script script/OPSuccinctUpgrader.s.sol:OPSuccinctUpgrader \
             --rpc-url $L1_RPC \
             --private-key $PRIVATE_KEY \
-            --etherscan-api-key $ETHERSCAN_API_KEY \
             --broadcast
     fi

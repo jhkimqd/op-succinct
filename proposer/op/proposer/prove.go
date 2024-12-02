@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net"
 	"net/http"
 	"strings"
@@ -450,15 +451,22 @@ func (l *L2OutputSubmitter) ValidateConfig(address string) error {
 	if err != nil {
 		return fmt.Errorf("error decoding JSON response: %v", err)
 	}
+	prettyJSON, err := json.MarshalIndent(response, "", "  ")
+	if err != nil {
+		log.Fatalf("Error marshaling JSON to pretty format: %v", err)
+	}
+	l.Log.Info(string(prettyJSON))
 
 	var invalidConfigs []string
 	if !response.RollupConfigHashValid {
 		invalidConfigs = append(invalidConfigs, "rollup config hash")
 	}
 	if !response.AggVkeyValid {
+		l.Log.Info("AggVKeyValid: ", response.AggVkeyValid)
 		invalidConfigs = append(invalidConfigs, "aggregation verification key")
 	}
 	if !response.RangeVkeyValid {
+		l.Log.Info("RangeVkeyValid: ", response.RangeVkeyValid)
 		invalidConfigs = append(invalidConfigs, "range verification key")
 	}
 	if len(invalidConfigs) > 0 {

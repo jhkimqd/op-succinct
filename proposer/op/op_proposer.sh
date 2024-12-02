@@ -19,5 +19,5 @@
     --use-cached-db=${USE_CACHED_DB:-false} \
     --metrics.enabled=${METRICS_ENABLED:-true} \
     --metrics.port=${METRICS_PORT:-7300} \
-    --mock=${OP_SUCCINCT_MOCK:-false} \
+    --mock=${OP_SUCCINCT_MOCK:-true} \
     ${SLACK_TOKEN:+--slack-token=${SLACK_TOKEN}} \  # Pass the Slack token if it is set.
