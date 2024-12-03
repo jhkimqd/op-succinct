@@ -1,4 +1,4 @@
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::time::Duration;
 
 use crate::fetcher::OPSuccinctDataFetcher;
 use alloy_eips::BlockId;
@@ -31,7 +31,7 @@ pub async fn get_validated_block_range(
     // If start block not provided, use end block - default_range
     let l2_start_block = match start {
         Some(start) => start,
-        None => l2_end_block.saturating_sub(default_range),
+        None => l2_end_block - default_range,
     };
 
     if l2_start_block >= l2_end_block {
@@ -51,10 +51,10 @@ pub async fn get_rolling_block_range(
     interval: Duration,
     range: u64,
 ) -> Result<(u64, u64)> {
-    let now = SystemTime::now().duration_since(UNIX_EPOCH)?.as_secs();
-    let start_timestanp = now - (now % interval.as_secs());
+    let header = data_fetcher.get_l2_header(BlockId::finalized()).await?;
+    let start_timestamp = header.timestamp - (header.timestamp % interval.as_secs());
     let (_, l2_start_block) = data_fetcher
-        .find_l2_block_by_timestamp(start_timestanp)
+        .find_l2_block_by_timestamp(start_timestamp)
         .await?;
 
     Ok((l2_start_block, l2_start_block + range))
