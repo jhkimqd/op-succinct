@@ -1333,9 +1333,9 @@ dependencies = [
 
 [[package]]
 name = "blake3"
-version = "1.5.4"
+version = "1.5.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d82033247fd8e890df8f740e407ad4d038debb9eb1f40533fffb32e7d17dc6f7"
+checksum = "b8ee0c1824c4dea5b5f81736aff91bae041d2c07ee1192bec91054e10e3e601e"
 dependencies = [
  "arrayref",
  "arrayvec",
@@ -1599,8 +1599,10 @@ checksum = "a21f936df1771bf62b77f047b726c4625ff2e8aa607c01ec06e5a05bd8463401"
 dependencies = [
  "android-tzdata",
  "iana-time-zone",
+ "js-sys",
  "num-traits",
  "serde",
+ "wasm-bindgen",
  "windows-targets 0.52.6",
 ]
 
@@ -2619,6 +2621,7 @@ name = "fault-proof"
 version = "0.1.0"
 dependencies = [
  "alloy-consensus",
+ "anyhow",
  "cfg-if",
  "kona-driver",
  "kona-executor",
@@ -2628,6 +2631,8 @@ dependencies = [
  "op-succinct-client-utils",
  "serde_json",
  "sp1-zkvm",
+ "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]
@@ -3690,7 +3695,7 @@ dependencies = [
 [[package]]
 name = "kona-client"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/kona?branch=patch-kona-proof-v0.1.0#fd084b688cb16614d2d0fd4338c53f4c1b130b57"
+source = "git+https://github.com/succinctlabs/kona?rev=574f5f56793ac592b5b31ffdd2cf683ac8371226#574f5f56793ac592b5b31ffdd2cf683ac8371226"
 dependencies = [
  "alloy-consensus",
  "alloy-eips",
@@ -3723,7 +3728,7 @@ dependencies = [
 [[package]]
 name = "kona-common"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/kona?branch=patch-kona-proof-v0.1.0#fd084b688cb16614d2d0fd4338c53f4c1b130b57"
+source = "git+https://github.com/succinctlabs/kona?rev=574f5f56793ac592b5b31ffdd2cf683ac8371226#574f5f56793ac592b5b31ffdd2cf683ac8371226"
 dependencies = [
  "cfg-if",
  "linked_list_allocator",
@@ -3733,7 +3738,7 @@ dependencies = [
 [[package]]
 name = "kona-common-proc"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/kona?branch=patch-kona-proof-v0.1.0#fd084b688cb16614d2d0fd4338c53f4c1b130b57"
+source = "git+https://github.com/succinctlabs/kona?rev=574f5f56793ac592b5b31ffdd2cf683ac8371226#574f5f56793ac592b5b31ffdd2cf683ac8371226"
 dependencies = [
  "anyhow",
  "cfg-if",
@@ -3746,7 +3751,7 @@ dependencies = [
 [[package]]
 name = "kona-derive"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/kona?branch=patch-kona-proof-v0.1.0#fd084b688cb16614d2d0fd4338c53f4c1b130b57"
+source = "git+https://github.com/succinctlabs/kona?rev=574f5f56793ac592b5b31ffdd2cf683ac8371226#574f5f56793ac592b5b31ffdd2cf683ac8371226"
 dependencies = [
  "alloy-consensus",
  "alloy-eips",
@@ -3765,7 +3770,7 @@ dependencies = [
 [[package]]
 name = "kona-driver"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/kona?branch=patch-kona-proof-v0.1.0#fd084b688cb16614d2d0fd4338c53f4c1b130b57"
+source = "git+https://github.com/succinctlabs/kona?rev=574f5f56793ac592b5b31ffdd2cf683ac8371226#574f5f56793ac592b5b31ffdd2cf683ac8371226"
 dependencies = [
  "alloy-consensus",
  "alloy-primitives 0.8.12",
@@ -3783,7 +3788,7 @@ dependencies = [
 [[package]]
 name = "kona-executor"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/kona?branch=patch-kona-proof-v0.1.0#fd084b688cb16614d2d0fd4338c53f4c1b130b57"
+source = "git+https://github.com/succinctlabs/kona?rev=574f5f56793ac592b5b31ffdd2cf683ac8371226#574f5f56793ac592b5b31ffdd2cf683ac8371226"
 dependencies = [
  "alloy-consensus",
  "alloy-eips",
@@ -3801,7 +3806,7 @@ dependencies = [
 [[package]]
 name = "kona-host"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/kona?branch=patch-kona-proof-v0.1.0#fd084b688cb16614d2d0fd4338c53f4c1b130b57"
+source = "git+https://github.com/succinctlabs/kona?rev=574f5f56793ac592b5b31ffdd2cf683ac8371226#574f5f56793ac592b5b31ffdd2cf683ac8371226"
 dependencies = [
  "alloy-consensus",
  "alloy-eips",
@@ -3840,7 +3845,7 @@ dependencies = [
 [[package]]
 name = "kona-mpt"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/kona?branch=patch-kona-proof-v0.1.0#fd084b688cb16614d2d0fd4338c53f4c1b130b57"
+source = "git+https://github.com/succinctlabs/kona?rev=574f5f56793ac592b5b31ffdd2cf683ac8371226#574f5f56793ac592b5b31ffdd2cf683ac8371226"
 dependencies = [
  "alloy-primitives 0.8.12",
  "alloy-rlp",
@@ -3852,7 +3857,7 @@ dependencies = [
 [[package]]
 name = "kona-preimage"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/kona?branch=patch-kona-proof-v0.1.0#fd084b688cb16614d2d0fd4338c53f4c1b130b57"
+source = "git+https://github.com/succinctlabs/kona?rev=574f5f56793ac592b5b31ffdd2cf683ac8371226#574f5f56793ac592b5b31ffdd2cf683ac8371226"
 dependencies = [
  "alloy-primitives 0.8.12",
  "async-trait",
@@ -3864,7 +3869,7 @@ dependencies = [
 [[package]]
 name = "kona-proof"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/kona?branch=patch-kona-proof-v0.1.0#fd084b688cb16614d2d0fd4338c53f4c1b130b57"
+source = "git+https://github.com/succinctlabs/kona?rev=574f5f56793ac592b5b31ffdd2cf683ac8371226#574f5f56793ac592b5b31ffdd2cf683ac8371226"
 dependencies = [
  "alloy-consensus",
  "alloy-eips",
@@ -4338,7 +4343,7 @@ version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "af1844ef2428cc3e1cb900be36181049ef3d3193c63e43026cfe202983b27a56"
 dependencies = [
- "proc-macro-crate 3.2.0",
+ "proc-macro-crate 1.3.1",
  "proc-macro2",
  "quote",
  "syn 2.0.87",
@@ -4505,6 +4510,7 @@ name = "op-succinct-build-utils"
 version = "0.1.0"
 dependencies = [
  "cargo_metadata",
+ "chrono",
  "sp1-build",
 ]
 
@@ -4523,6 +4529,7 @@ dependencies = [
  "kona-client",
  "kona-common",
  "kona-derive",
+ "kona-driver",
  "kona-executor",
  "kona-mpt",
  "kona-preimage",
@@ -4540,6 +4547,7 @@ dependencies = [
  "sha2",
  "spin 0.9.8",
  "thiserror 2.0.3",
+ "tracing",
 ]
 
 [[package]]
@@ -5579,14 +5587,20 @@ version = "0.1.0"
 dependencies = [
  "alloy-consensus",
  "alloy-eips",
+ "alloy-primitives 0.8.12",
+ "alloy-rlp",
  "anyhow",
  "cfg-if",
  "kona-derive",
+ "kona-driver",
  "kona-executor",
+ "kona-preimage",
  "kona-proof",
  "log",
  "op-alloy-consensus",
  "op-alloy-genesis",
+ "op-alloy-protocol",
+ "op-alloy-rpc-types-engine",
  "op-succinct-client-utils",
  "serde_json",
  "sp1-zkvm",
@@ -6682,7 +6696,7 @@ dependencies = [
 [[package]]
 name = "sp1-core-executor"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "bincode",
  "bytemuck",
@@ -6715,7 +6729,7 @@ dependencies = [
 [[package]]
 name = "sp1-core-machine"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "bincode",
  "cfg-if",
@@ -6756,14 +6770,13 @@ dependencies = [
  "tracing-forest",
  "tracing-subscriber",
  "typenum",
- "vec_map",
  "web-time",
 ]
 
 [[package]]
 name = "sp1-curves"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "cfg-if",
  "curve25519-dalek",
@@ -6784,7 +6797,7 @@ dependencies = [
 [[package]]
 name = "sp1-derive"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "quote",
  "syn 1.0.109",
@@ -6817,7 +6830,7 @@ dependencies = [
 [[package]]
 name = "sp1-primitives"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "bincode",
  "hex",
@@ -6852,7 +6865,7 @@ dependencies = [
 [[package]]
 name = "sp1-prover"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "anyhow",
  "bincode",
@@ -6893,7 +6906,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-circuit"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "hashbrown 0.14.5",
  "itertools 0.13.0",
@@ -6926,7 +6939,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-compiler"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "backtrace",
  "itertools 0.13.0",
@@ -6947,7 +6960,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-core"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "backtrace",
  "ff 0.13.0",
@@ -6982,7 +6995,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-derive"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "quote",
  "syn 1.0.109",
@@ -6991,7 +7004,7 @@ dependencies = [
 [[package]]
 name = "sp1-recursion-gnark-ffi"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "anyhow",
  "bincode",
@@ -7016,7 +7029,7 @@ dependencies = [
 [[package]]
 name = "sp1-sdk"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "alloy-sol-types 0.7.7",
  "anyhow",
@@ -7056,7 +7069,7 @@ dependencies = [
 [[package]]
 name = "sp1-stark"
 version = "3.0.0"
-source = "git+https://github.com/succinctlabs/sp1.git?rev=df1ed4b2c11e9f33f682f240c282cfba1c8bc453#df1ed4b2c11e9f33f682f240c282cfba1c8bc453"
+source = "git+https://github.com/succinctlabs/sp1.git?rev=884948a30c9b125950b9ddf7a344fb69548cd9df#884948a30c9b125950b9ddf7a344fb69548cd9df"
 dependencies = [
  "arrayref",
  "getrandom",

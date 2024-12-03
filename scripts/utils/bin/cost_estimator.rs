@@ -24,7 +24,7 @@ use std::{
 
 pub const MULTI_BLOCK_ELF: &[u8] = include_bytes!("../../../elf/range-elf");
 
-const TWO_WEEKS: Duration = Duration::from_secs(14 * 24 * 60 * 60);
+const TWELVE_HOURS: Duration = Duration::from_secs(60 * 60 * 12);
 
 /// The arguments for the host executable.
 #[derive(Debug, Clone, Parser)]
@@ -56,7 +56,7 @@ struct SpanBatchRange {
 }
 
 fn get_max_span_batch_range_size(l2_chain_id: u64, supplied_range_size: Option<u64>) -> u64 {
-    // TODO: The default size/batch size should be dynamic based on the L2 chain. Specifically, look at the gas used across the block range (should be fast to compute) and then set the batch size accordingly.
+    // FIXME: The default size/batch size should be dynamic based on the L2 chain. Specifically, look at the gas used across the block range (should be fast to compute) and then set the batch size accordingly.
     if let Some(supplied_range_size) = supplied_range_size {
         return supplied_range_size;
     }
@@ -87,7 +87,7 @@ fn split_range(
             start: current_start,
             end: current_end,
         });
-        current_start = current_end + 1;
+        current_start = current_end;
     }
 
     ranges
@@ -169,7 +169,7 @@ async fn execute_blocks_parallel(
         .for_each(|(host_cli, (range, block_data))| {
             let sp1_stdin = get_proof_stdin(host_cli).unwrap();
 
-            // TODO: Implement retries with a smaller block range if this fails.
+            // FIXME: Implement retries with a smaller block range if this fails.
             let result = prover.execute(MULTI_BLOCK_ELF, sp1_stdin).run();
 
             // If the execution fails, skip this block range and log the error.
@@ -274,11 +274,17 @@ async fn main() -> Result<()> {
     let data_fetcher = OPSuccinctDataFetcher::new_with_rollup_config().await?;
     let l2_chain_id = data_fetcher.get_l2_chain_id().await?;
 
-    const DEFAULT_RANGE: u64 = 5;
+    const COST_ESTIMATOR_ROLLING_RANGE: u64 = 100;
     let (l2_start_block, l2_end_block) = if args.rolling {
-        get_rolling_block_range(&data_fetcher, TWO_WEEKS, DEFAULT_RANGE).await?
+        get_rolling_block_range(&data_fetcher, TWELVE_HOURS, COST_ESTIMATOR_ROLLING_RANGE).await?
     } else {
-        get_validated_block_range(&data_fetcher, args.start, args.end, DEFAULT_RANGE).await?
+        get_validated_block_range(
+            &data_fetcher,
+            args.start,
+            args.end,
+            COST_ESTIMATOR_ROLLING_RANGE,
+        )
+        .await?
     };
 
     let split_ranges = split_range(l2_start_block, l2_end_block, l2_chain_id, args.batch_size);
