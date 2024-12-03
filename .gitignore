@@ -14,8 +14,8 @@ data
 .vscode
 
 # .env files
-.env*
-!.env.example
+# .env*
+# !.env.example
 
 # txt
 **.txt
