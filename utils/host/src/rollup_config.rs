@@ -120,6 +120,8 @@ pub fn get_rollup_config_path(l2_chain_id: u64) -> Result<PathBuf> {
         .exec()
         .expect("Failed to get workspace root")
         .workspace_root;
+    // Log the workspace root using println!
+    println!("Workspace Root: {:?}", workspace_root);
     let rollup_config_path = workspace_root.join(format!("configs/{}/rollup.json", l2_chain_id));
     Ok(rollup_config_path.into())
 }

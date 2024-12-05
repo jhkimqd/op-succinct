@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 
 # Final stage
-FROM ubuntu:22.04
+FROM ubuntu:22.04 AS builder
 
 WORKDIR /app
 
@@ -15,11 +15,11 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH=/root/.cargo/bin:$PATH
 
 # Verify Rust installation
-RUN rustc --version && cargo --version
+# RUN rustc --version && cargo --version
 
 # Install SP1
 RUN curl -L https://sp1.succinct.xyz | bash && \
@@ -42,9 +42,27 @@ RUN --mount=type=ssh \
     cargo build --bin server --release && \
     cp target/release/server /usr/local/bin/server
 
+# Stage 2: Final Stage (Minimal runtime image)
+FROM ubuntu:22.04
+
+WORKDIR /app
+
+ENV PATH=/root/.cargo/bin:$PATH
+
+# Install minimal dependencies required to run the server
+RUN apt-get update && apt-get install -y \
+    libssl-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy the built binary from the builder stage
+COPY --from=builder /usr/local/bin/server /usr/local/bin/server
+COPY --from=builder /app /app
+
 # Expose port based on environment variable or default to 3000
 ENV PORT=${PORT:-3000}
 EXPOSE $PORT
 
 # Run the server from its permanent location
-CMD ["/usr/local/bin/server"]
+# CMD ["/usr/local/bin/server"]
+CMD ["tail", "-f", "/dev/null"]

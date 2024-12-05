@@ -50,3 +50,15 @@ if [[ -n "$address" ]]; then
 else
     echo "Contract address not found in the output."
 fi
+
+
+# Replace the RPCs to work with docker compose
+L1_RPC="el-1-geth-lighthouse:8545"
+L1_BEACON_RPC="cl-1-lighthouse-geth:4000"
+L2_RPC="op-el-1-op-geth-op-node-op-kurtosis:8545"
+L2_NODE_RPC="op-cl-1-op-node-op-geth-op-kurtosis:8547"
+
+sed -i "s|^L1_RPC=\".*\"$|L1_RPC=\"http://$L1_RPC\"|" .env
+sed -i "s|^L1_BEACON_RPC=\".*\"$|L1_BEACON_RPC=\"http://$L1_BEACON_RPC\"|" .env
+sed -i "s|^L2_RPC=\".*\"$|L2_RPC=\"http://$L2_RPC\"|" .env
+sed -i "s|^L2_NODE_RPC=\".*\"$|L2_NODE_RPC=\"http://$L2_NODE_RPC\"|" .env
