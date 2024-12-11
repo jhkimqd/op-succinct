@@ -18,22 +18,36 @@ pub async fn get_validated_block_range(
     end: Option<u64>,
     default_range: u64,
 ) -> Result<(u64, u64)> {
-    let header = data_fetcher.get_l2_header(BlockId::finalized()).await?;
-    println!("header: {:?}", header.number);
+    // If safeDB is activated, get the L2 safe head. If not, use the finalized block.
+    let safe_db_activated = data_fetcher.is_safe_db_activated().await?;
+    let end_number = if safe_db_activated {
+        let header = data_fetcher.get_l1_header(BlockId::latest()).await?;
+        let safe_head_response: SafeHeadResponse = data_fetcher
+            .fetch_rpc_data_with_mode(
+                RPCMode::L2Node,
+                "optimism_safeHeadAtL1Block",
+                vec![format!("0x{:x}", header.number).into()],
+            )
+            .await?;
+        safe_head_response.safe_head.number
+    } else {
+        let header = data_fetcher.get_l2_header(BlockId::finalized()).await?;
+        header.number
+    };
 
     // If end block not provided, use latest finalized block
     let l2_end_block = match end {
         Some(end) => {
-            if end > header.number {
+            if end > end_number {
                 bail!(
                     "The end block ({}) is greater than the latest finalized block ({})",
                     end,
-                    header.number
+                    end_number
                 );
             }
             end
         }
-        None => header.number,
+        None => end_number,
     };
 
     // If start block not provided, use end block - default_range
@@ -148,7 +162,7 @@ pub async fn split_range_based_on_safe_heads(
 
     // Loop over all of the safe heads and create ranges.
     for safe_head in safe_heads {
-        if safe_head > current_l2_start {
+        if safe_head > current_l2_start && current_l2_start < l2_end {
             let mut range_start = current_l2_start;
             while range_start + max_range_size < min(l2_end, safe_head) {
                 ranges.push(SpanBatchRange {

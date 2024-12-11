@@ -148,6 +148,9 @@ deploy-oracle env_file=".env":
 
     # cd into contracts directory
     cd contracts
+
+    # forge install
+    forge install
     
     # Run the forge deployment script
     forge script script/OPSuccinctDeployer.s.sol:OPSuccinctDeployer \
@@ -169,6 +172,9 @@ upgrade-oracle env_file=".env":
 
     # cd into contracts directory
     cd contracts
+
+    # forge install
+    forge install
     
     # Run the forge upgrade script
     if [ "${EXECUTE_UPGRADE_CALL:-true}" = "false" ]; then
@@ -195,6 +201,9 @@ update-parameters env_file=".env":
 
     # cd into contracts directory
     cd contracts
+
+    # forge install
+    forge install
     
     # Run the forge upgrade script
     if [ "${EXECUTE_UPGRADE_CALL:-true}" = "false" ]; then
